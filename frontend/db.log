@@ -1,0 +1,20 @@
+2026-05-26 23:16:12.700 IST [22792] LOG:  starting PostgreSQL 18.3 on x86_64-windows, compiled by msvc-19.44.35222, 64-bit
+2026-05-26 23:16:12.707 IST [22792] LOG:  listening on IPv6 address "::1", port 5433
+2026-05-26 23:16:12.707 IST [22792] LOG:  listening on IPv4 address "127.0.0.1", port 5433
+2026-05-26 23:16:13.591 IST [21080] LOG:  database system was interrupted; last known up at 2026-05-26 23:15:51 IST
+2026-05-26 23:16:14.261 IST [21080] LOG:  database system was not properly shut down; automatic recovery in progress
+2026-05-26 23:16:14.263 IST [21080] LOG:  invalid record length at 0/17F1330: expected at least 24, got 0
+2026-05-26 23:16:14.263 IST [21080] LOG:  redo is not required
+2026-05-26 23:16:14.267 IST [7404] LOG:  checkpoint starting: end-of-recovery immediate wait
+2026-05-26 23:16:14.278 IST [7404] LOG:  checkpoint complete: wrote 0 buffers (0.0%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.003 s, sync=0.002 s, total=0.013 s; sync files=2, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kB; lsn=0/17F1330, redo lsn=0/17F1330
+2026-05-26 23:16:14.283 IST [22792] LOG:  database system is ready to accept connections
+2026-05-26 23:16:51.581 IST [18016] LOG:  starting PostgreSQL 18.3 on x86_64-windows, compiled by msvc-19.44.35222, 64-bit
+2026-05-26 23:16:51.588 IST [18016] LOG:  listening on IPv6 address "::1", port 5434
+2026-05-26 23:16:51.591 IST [18016] LOG:  listening on IPv4 address "127.0.0.1", port 5434
+2026-05-26 23:16:52.470 IST [20248] LOG:  database system was interrupted; last known up at 2026-05-26 23:16:14 IST
+2026-05-26 23:16:54.003 IST [20248] LOG:  database system was not properly shut down; automatic recovery in progress
+2026-05-26 23:16:54.012 IST [20248] LOG:  invalid record length at 0/17F13A8: expected at least 24, got 0
+2026-05-26 23:16:54.013 IST [20248] LOG:  redo is not required
+2026-05-26 23:16:54.021 IST [1836] LOG:  checkpoint starting: end-of-recovery immediate wait
+2026-05-26 23:16:54.071 IST [1836] LOG:  checkpoint complete: wrote 0 buffers (0.0%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.014 s, sync=0.005 s, total=0.053 s; sync files=2, longest=0.004 s, average=0.003 s; distance=0 kB, estimate=0 kB; lsn=0/17F13A8, redo lsn=0/17F13A8
+2026-05-26 23:16:54.095 IST [18016] LOG:  database system is ready to accept connections

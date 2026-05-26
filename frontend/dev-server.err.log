@@ -1,0 +1,980 @@
+⨯ Error: Failed to load external module @prisma/client-2c3a283f134fdcb6: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\@prisma\client\default.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0h~0vpx._.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[turbopack]_runtime.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\app\page.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\require.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\load-components.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\build\utils.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\start-server.js
+    at module evaluation (src\lib\prisma.ts:1:1)
+    at module evaluation (src\app\page.tsx:1:1)
+    at module evaluation (C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0xwi5du._.js:713:47)
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+⨯ Error: Failed to load external module @prisma/client-2c3a283f134fdcb6: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\@prisma\client\default.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0h~0vpx._.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[turbopack]_runtime.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\app\page.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\require.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\load-components.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\build\utils.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\start-server.js
+    at module evaluation (src\lib\prisma.ts:1:1)
+    at module evaluation (src\app\page.tsx:1:1)
+    at module evaluation (C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0xwi5du._.js:713:47)
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 | {
+  page: '/'
+}
+⨯ Error: Failed to load external module @prisma/client-2c3a283f134fdcb6: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\@prisma\client\default.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0h~0vpx._.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[turbopack]_runtime.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\app\page.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\require.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\load-components.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\build\utils.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\start-server.js
+    at module evaluation (src\lib\prisma.ts:1:1)
+    at module evaluation (src\app\page.tsx:1:1)
+    at module evaluation (C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0xwi5du._.js:713:47)
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 | {
+  page: '/'
+}
+⨯ Error: Failed to load external module @prisma/client-2c3a283f134fdcb6: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\@prisma\client\default.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0h~0vpx._.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[turbopack]_runtime.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\app\page.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\require.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\load-components.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\build\utils.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\start-server.js
+    at module evaluation (src\lib\prisma.ts:1:1)
+    at module evaluation (src\app\page.tsx:1:1)
+    at module evaluation (C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0xwi5du._.js:713:47)
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 | {
+  page: '/'
+}
+⨯ Error: Failed to load external module @prisma/client-2c3a283f134fdcb6: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\@prisma\client\default.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0h~0vpx._.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[turbopack]_runtime.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\app\page.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\require.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\load-components.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\build\utils.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\start-server.js
+    at module evaluation (src\lib\prisma.ts:1:1)
+    at module evaluation (src\app\page.tsx:1:1)
+    at module evaluation (C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0xwi5du._.js:713:47)
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 | {
+  page: '/'
+}
+⨯ Error: Failed to load external module @prisma/client-2c3a283f134fdcb6: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\@prisma\client\default.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0h~0vpx._.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[turbopack]_runtime.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\app\page.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\require.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\load-components.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\build\utils.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\start-server.js
+    at module evaluation (src\lib\prisma.ts:1:1)
+    at module evaluation (src\app\page.tsx:1:1)
+    at module evaluation (C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0xwi5du._.js:713:47)
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 | {
+  page: '/'
+}
+[browser] Uncaught Error: Failed to load external module @prisma/client-2c3a283f134fdcb6: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\@prisma\client\default.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0h~0vpx._.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[turbopack]_runtime.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\app\page.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\require.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\load-components.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\build\utils.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\start-server.js
+    at module evaluation (src/lib/prisma.ts:1:1)
+    at module evaluation (src/app/page.tsx:1:1)
+    at module evaluation (src/app/page.tsx:37:1)
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+[browser] Uncaught Error: Failed to load external module @prisma/client-2c3a283f134fdcb6: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\@prisma\client\default.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0h~0vpx._.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[turbopack]_runtime.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\app\page.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\require.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\load-components.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\build\utils.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\start-server.js
+    at module evaluation (src/lib/prisma.ts:1:1)
+    at module evaluation (src/app/page.tsx:1:1)
+    at module evaluation (src/app/page.tsx:37:1)
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+⨯ ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mPrismaClient[0m } [36mfrom[0m [32m'@prisma/client'[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mconst[0m globalForPrisma = global [36mas[0m unknown [36mas[0m { prisma: [33mPrismaClient[0m };
+  [90m4 |[0m
+
+
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mPrismaClient[0m } [36mfrom[0m [32m'@prisma/client'[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mconst[0m globalForPrisma = global [36mas[0m unknown [36mas[0m { prisma: [33mPrismaClient[0m };
+  [90m4 |[0m
+
+
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mPrismaClient[0m } [36mfrom[0m [32m'@prisma/client'[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mconst[0m globalForPrisma = global [36mas[0m unknown [36mas[0m { prisma: [33mPrismaClient[0m };
+  [90m4 |[0m
+
+
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] Uncaught Error: ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (Error: ./src/lib/prisma.ts:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (Error: (./src/lib/prisma.ts:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+⨯ ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { [33mPrismaClient[0m } [36mfrom[0m [32m'@prisma/client'[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m
+  [90m3 |[0m [36mconst[0m globalForPrisma = global [36mas[0m unknown [36mas[0m { prisma: [33mPrismaClient[0m };
+  [90m4 |[0m
+
+
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] Uncaught Error: ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (Error: ./src/lib/prisma.ts:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (Error: (./src/lib/prisma.ts:1:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./src/lib/prisma.ts:1:1
+Module not found: Can't resolve '@prisma/client'
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+
+Import trace:
+  Server Component:
+    ./src/lib/prisma.ts
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+⨯ Error: Failed to load external module @prisma/client-2c3a283f134fdcb6: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\@prisma\client\default.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0h~0vpx._.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[turbopack]_runtime.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\app\page.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\require.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\load-components.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\build\utils.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\start-server.js
+    at module evaluation (src\lib\prisma.ts:1:1)
+    at module evaluation (src\app\page.tsx:1:1)
+    at module evaluation (C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0xwi5du._.js:713:47)
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+⨯ Error: Failed to load external module @prisma/client-2c3a283f134fdcb6: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\@prisma\client\default.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0h~0vpx._.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[turbopack]_runtime.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\app\page.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\require.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\load-components.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\build\utils.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\start-server.js
+    at module evaluation (src\lib\prisma.ts:1:1)
+    at module evaluation (src\app\page.tsx:1:1)
+    at module evaluation (C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0xwi5du._.js:713:47)
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 | {
+  page: '/'
+}
+⨯ Error: Failed to load external module @prisma/client-2c3a283f134fdcb6: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\@prisma\client\default.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0h~0vpx._.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[turbopack]_runtime.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\app\page.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\require.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\load-components.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\build\utils.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\start-server.js
+    at module evaluation (src\lib\prisma.ts:1:1)
+    at module evaluation (src\app\page.tsx:1:1)
+    at module evaluation (C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0xwi5du._.js:713:47)
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 | {
+  page: '/'
+}
+⨯ Error: Failed to load external module @prisma/client-2c3a283f134fdcb6: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\@prisma\client\default.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0h~0vpx._.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[turbopack]_runtime.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\app\page.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\require.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\load-components.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\build\utils.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\start-server.js
+    at module evaluation (src\lib\prisma.ts:1:1)
+    at module evaluation (src\app\page.tsx:1:1)
+    at module evaluation (C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0xwi5du._.js:713:47)
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 | {
+  page: '/'
+}
+[browser] Uncaught Error: Failed to load external module @prisma/client-2c3a283f134fdcb6: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\@prisma\client\default.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0h~0vpx._.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[turbopack]_runtime.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\app\page.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\require.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\load-components.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\build\utils.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\start-server.js
+    at module evaluation (src/lib/prisma.ts:1:1)
+    at module evaluation (src/app/page.tsx:1:1)
+    at module evaluation (src/app/page.tsx:37:1)
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+[browser] Uncaught Error: Failed to load external module @prisma/client-2c3a283f134fdcb6: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\@prisma\client\default.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0h~0vpx._.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[turbopack]_runtime.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\app\page.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\require.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\load-components.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\build\utils.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\start-server.js
+    at module evaluation (src/lib/prisma.ts:1:1)
+    at module evaluation (src/app/page.tsx:1:1)
+    at module evaluation (src/app/page.tsx:37:1)
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |
+⨯ Error: Failed to load external module @prisma/client-2c3a283f134fdcb6: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\@prisma\client\default.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0h~0vpx._.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[turbopack]_runtime.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\app\page.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\require.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\load-components.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\build\utils.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\start-server.js
+    at module evaluation (src\lib\prisma.ts:1:1)
+    at module evaluation (src\app\page.tsx:1:1)
+    at module evaluation (C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0xwi5du._.js:713:47)
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 | {
+  page: '/'
+}
+⨯ Error: Failed to load external module @prisma/client-2c3a283f134fdcb6: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\@prisma\client\default.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0h~0vpx._.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[turbopack]_runtime.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\app\page.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\require.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\load-components.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\build\utils.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\start-server.js
+    at module evaluation (src\lib\prisma.ts:1:1)
+    at module evaluation (src\app\page.tsx:1:1)
+    at module evaluation (C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0xwi5du._.js:713:47)
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 | {
+  page: '/'
+}
+[browser] Uncaught Error: Failed to load external module @prisma/client-2c3a283f134fdcb6: Error: Cannot find module '.prisma/client/default'
+Require stack:
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\@prisma\client\default.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0h~0vpx._.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\chunks\ssr\[turbopack]_runtime.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\.next\dev\server\app\page.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\require.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\load-components.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\build\utils.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\ASUS\Desktop\Perfume\frontend\node_modules\next\dist\server\lib\start-server.js
+    at module evaluation (src/lib/prisma.ts:1:1)
+    at module evaluation (src/app/page.tsx:1:1)
+    at module evaluation (src/app/page.tsx:37:1)
+> 1 | import { PrismaClient } from '@prisma/client';
+    | ^
+  2 |
+  3 | const globalForPrisma = global as unknown as { prisma: PrismaClient };
+  4 |

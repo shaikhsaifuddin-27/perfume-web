@@ -1,0 +1,22 @@
+
+> frontend@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.4 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.105:3000
+- Environments: .env
+✓ Ready in 2.4s
+Creating turbopack project { dir: 'C:\\Users\\ASUS\\Desktop\\Perfume\\frontend', testMode: true }
+
+○ Compiling /_error ...
+ GET / 500 in 5.1s (next.js: 4.1s, application-code: 1013ms)
+ GET / 500 in 10.5s (next.js: 10.4s, application-code: 66ms)
+ GET / 500 in 1989ms (next.js: 1949ms, application-code: 40ms)
+ GET / 500 in 2.0s (next.js: 1429ms, application-code: 600ms)
+ GET / 500 in 73ms (next.js: 31ms, application-code: 42ms)
+✓ Compiled in 372ms
+ GET / 500 in 5.2s (next.js: 5.1s, application-code: 58ms)
+ GET / 500 in 5.2s (next.js: 5.2s, application-code: 62ms)
+ GET / 500 in 1779ms (next.js: 1740ms, application-code: 39ms)
+[?25h
