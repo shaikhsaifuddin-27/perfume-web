@@ -8,8 +8,13 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [visible, setVisible] = useState(true);
   const [lastY, setLastY] = useState(0);
+  const [mounted, setMounted] = useState(false);
   const { cartCount, setCartOpen, setSearchOpen, menuOpen, setMenuOpen } = useStore();
   const count = cartCount();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -51,7 +56,7 @@ export default function Navbar() {
           </Link>
           <button className={styles.iconBtn} onClick={() => setCartOpen(true)} aria-label="Cart" style={{ position: 'relative' }}>
             <i className="fa-solid fa-bag-shopping"></i>
-            {count > 0 && <span className={styles.cartBadge}>{count}</span>}
+            {mounted && count > 0 && <span className={styles.cartBadge}>{count}</span>}
           </button>
         </div>
       </nav>

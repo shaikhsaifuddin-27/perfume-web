@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useStore } from '@/store/useStore';
@@ -12,8 +12,14 @@ interface ProductDetailClientProps {
 }
 
 export default function ProductDetailClient({ product, related }: ProductDetailClientProps) {
+  const [mounted, setMounted] = useState(false);
   const { addToCart, toggleWishlist, wishlist } = useStore();
-  const isWishlisted = wishlist.includes(product.id);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isWishlisted = mounted && wishlist.includes(product.id);
   
   // Find the first size or default
   const [selectedSize, setSelectedSize] = useState(product.sizes[0]);

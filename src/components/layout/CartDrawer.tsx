@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from 'react';
 import { useStore } from '@/store/useStore';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -6,7 +7,14 @@ import styles from './CartDrawer.module.css';
 
 export default function CartDrawer() {
   const { cart, cartOpen, setCartOpen, removeFromCart, updateQty, cartTotal } = useStore();
+  const [mounted, setMounted] = useState(false);
   const total = cartTotal();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <>

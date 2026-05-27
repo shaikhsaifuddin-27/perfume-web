@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useStore } from '@/store/useStore';
@@ -11,8 +12,14 @@ interface Props {
 }
 
 export default function ProductCard({ product, priority = false }: Props) {
+  const [mounted, setMounted] = useState(false);
   const { addToCart, toggleWishlist, wishlist, formatPrice } = useStore();
-  const isWishlisted = wishlist.includes(product.id);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isWishlisted = mounted && wishlist.includes(product.id);
 
   // Use the price from the first size as the default price for the card
   const displayPrice = product.sizes?.[0]?.price ?? 0;
