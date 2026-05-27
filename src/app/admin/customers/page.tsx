@@ -2,7 +2,7 @@ import { prisma } from '@/lib/prisma';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = { title: 'Customers | Admin' };
-export const revalidate = 0; // always fresh for admin
+export const dynamic = 'force-dynamic'; // always fresh for admin
 
 export default async function AdminCustomersPage() {
   const users = await prisma.user.findMany({

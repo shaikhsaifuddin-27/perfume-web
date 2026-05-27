@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = { title: 'Products | Admin' };
 
-export const revalidate = 0; // always fresh for admin
+export const dynamic = 'force-dynamic'; // always fresh for admin
 
 export default async function AdminProductsPage() {
   const [products, categories] = await Promise.all([

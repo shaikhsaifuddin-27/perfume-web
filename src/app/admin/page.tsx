@@ -1,6 +1,8 @@
 import { prisma } from '@/lib/prisma';
 import { unstable_cache } from 'next/cache';
 
+export const dynamic = 'force-dynamic';
+
 const getAdminStats = unstable_cache(
   async () => {
     const [totalProducts, totalOrders, totalRevenue, totalUsers] = await Promise.all([

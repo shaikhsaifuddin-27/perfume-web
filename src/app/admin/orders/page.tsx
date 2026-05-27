@@ -5,7 +5,7 @@ import { OrderStatus } from '@prisma/client';
 import Image from 'next/image';
 
 export const metadata: Metadata = { title: 'Orders | Admin' };
-export const revalidate = 0; // always fresh for admin
+export const dynamic = 'force-dynamic'; // always fresh for admin
 
 export default async function AdminOrdersPage() {
   const orders = await prisma.order.findMany({

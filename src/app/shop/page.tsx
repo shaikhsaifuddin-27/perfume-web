@@ -7,6 +7,8 @@ import { prisma } from '@/lib/prisma';
 import ShopClient from './ShopClient';
 import styles from './shop.module.css';
 
+export const dynamic = 'force-dynamic';
+
 export default async function ShopPage() {
   // Fetch products and categories on the server
   const products = await prisma.product.findMany({
