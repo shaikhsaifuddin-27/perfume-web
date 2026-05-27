@@ -1,0 +1,29 @@
+# Dependency directories
+node_modules/
+frontend/node_modules/
+
+# Next.js build output
+.next/
+frontend/.next/
+build/
+dist/
+
+# Environmental variables
+.env
+.env*.local
+frontend/.env
+frontend/.env*.local
+
+# Database / PostgreSQL data
+pg_data/
+frontend/pg_data/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Log files
+*.log
+
+# OS/System files
+.DS_Store
+Thumbs.db

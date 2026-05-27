@@ -1,0 +1,76 @@
+.hero {
+  position: relative; height: 80vh; min-height: 600px;
+  display: flex; align-items: flex-end;
+}
+.heroOverlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.3) 60%, rgba(5,5,5,0.4) 100%);
+}
+.heroContent {
+  position: relative; z-index: 2;
+  padding: 0 40px 80px;
+}
+.heroTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(52px, 7vw, 96px); font-weight: 300;
+  color: #F5F0E8; line-height: 1.0;
+}
+
+.section { padding: 100px 0; background: #0A0A0A; }
+.missionGrid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.sectionTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 4vw, 60px); font-weight: 300;
+  color: #F5F0E8; line-height: 1.1; margin-bottom: 20px;
+}
+.body { font-size: 14px; color: rgba(245,240,232,0.5); line-height: 1.9; font-weight: 300; }
+.missionStats {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+}
+.stat { padding: 32px; border: 1px solid rgba(201,168,76,0.1); text-align: center; }
+.statNum {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px; color: #C9A84C; font-weight: 300;
+  display: block; margin-bottom: 8px;
+}
+.statLabel { font-size: 11px; letter-spacing: 0.15em; color: rgba(245,240,232,0.35); text-transform: uppercase; }
+
+.atelierSection {
+  display: grid; grid-template-columns: 1fr 1fr; min-height: 600px;
+}
+.atelierImg { position: relative; }
+.atelierOverlay { position: absolute; inset: 0; background: rgba(5,5,5,0.3); }
+.atelierContent {
+  background: #050505; padding: 80px 60px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+
+.valuesGrid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+}
+.valueCard { padding: 40px 28px; transition: transform 0.4s ease; }
+.valueCard:hover { transform: translateY(-4px); }
+.valueTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; color: #F5F0E8; margin-bottom: 12px; font-weight: 300;
+}
+
+.cta { padding: 100px 0; background: #080808; }
+.ctaTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 5vw, 72px); font-weight: 300;
+  color: #F5F0E8; text-align: center; margin-bottom: 16px;
+}
+
+@media (max-width: 1024px) {
+  .missionGrid, .atelierSection { grid-template-columns: 1fr; }
+  .valuesGrid { grid-template-columns: repeat(2, 1fr); }
+  .atelierContent { padding: 60px 40px; }
+}
+@media (max-width: 768px) {
+  .heroContent { padding: 0 20px 60px; }
+  .valuesGrid { grid-template-columns: 1fr; }
+  .missionStats { grid-template-columns: 1fr 1fr; }
+}
