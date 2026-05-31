@@ -1,19 +1,20 @@
-import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma } from "@/lib/prisma";
+import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
     await prisma.$queryRaw`SELECT 1`;
+
     return NextResponse.json({
-      status: 'ok',
-      db: 'connected',
-      timestamp: new Date().toISOString(),
-      env: process.env.NODE_ENV,
+      status: "ok",
+      db: "connected",
     });
-  } catch {
-    return NextResponse.json(
-      { status: 'error', db: 'disconnected', timestamp: new Date().toISOString() },
-      { status: 503 }
-    );
+  } catch (error: any) {
+    return NextResponse.json({
+      status: "error",
+      db: "disconnected",
+      message: error?.message,
+      code: error?.code,
+    });
   }
 }
