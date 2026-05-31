@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { auditLog } from '@/lib/audit';
+import { getRequestMeta } from '@/lib/requestMeta';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_placeholder');
 
@@ -17,41 +21,67 @@ const checkoutSchema = z.object({
     .min(1)
     .max(50),
   email: z.string().email(),
-  userId: z.string().optional(),
+  couponCode: z.string().trim().max(50).optional(),
+  shipping: z.object({
+    firstName: z.string().min(1),
+    lastName: z.string().optional().default(''),
+    address: z.string().min(1),
+    city: z.string().min(1),
+    country: z.string().min(1),
+    zip: z.string().min(1),
+    phone: z.string().optional().default(''),
+  }),
 });
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const { items, email, userId } = checkoutSchema.parse(body);
+    const authSession = await getServerSession(authOptions);
+    if (!authSession?.user?.id) {
+      return NextResponse.json({ error: 'Please sign in before checkout.' }, { status: 401 });
+    }
 
-    // Fix N+1: fetch all products in one query
+    const body = await req.json();
+    const { items, email, couponCode, shipping } = checkoutSchema.parse(body);
     const productIds = [...new Set(items.map((i) => i.productId))];
     const dbProducts = await prisma.product.findMany({
-      where: { id: { in: productIds } },
+      where: { id: { in: productIds }, isActive: true, deletedAt: null },
       include: { sizes: true },
     });
     const productMap = new Map(dbProducts.map((p) => [p.id, p]));
-
     const lineItems: Stripe.Checkout.SessionCreateParams['line_items'] = [];
+    let subtotal = 0;
 
     for (const item of items) {
       const dbProduct = productMap.get(item.productId);
-      if (!dbProduct) continue;
+      if (!dbProduct) {
+        return NextResponse.json({ error: 'One or more products are unavailable.' }, { status: 400 });
+      }
 
       const size = dbProduct.sizes.find((s) => s.ml === item.size);
-      if (!size) continue;
+      if (!size) {
+        return NextResponse.json({ error: 'One or more product sizes are unavailable.' }, { status: 400 });
+      }
 
-      // Validate stock
-      if (size.stock <= 0) continue;
+      if (item.quantity > size.stock) {
+        return NextResponse.json(
+          { error: `${dbProduct.name} ${size.ml}ml has only ${size.stock} unit(s) available.` },
+          { status: 409 }
+        );
+      }
 
+      subtotal += size.price * item.quantity;
       lineItems.push({
         price_data: {
           currency: 'usd',
           product_data: {
-            name: `${dbProduct.name} — ${size.ml}ml`,
+            name: `${dbProduct.name} - ${size.ml}ml`,
             images: [`${process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'}${dbProduct.image}`],
-            metadata: { productId: dbProduct.id, sizeId: size.id, sizeML: String(size.ml) },
+            metadata: {
+              productId: dbProduct.id,
+              sizeId: size.id,
+              sizeML: String(size.ml),
+              productImage: dbProduct.image,
+            },
           },
           unit_amount: Math.round(size.price * 100),
         },
@@ -59,25 +89,87 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    if (lineItems.length === 0) {
-      return NextResponse.json({ error: 'No valid items in cart' }, { status: 400 });
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000';
+    let couponMeta: { id: string; code: string; discount: number; isFixed: boolean } | null = null;
+    let discounts: { coupon: string }[] | undefined;
+
+    if (couponCode) {
+      const coupon = await prisma.coupon.findFirst({
+        where: {
+          code: couponCode.toUpperCase(),
+          isActive: true,
+          archivedAt: null,
+          OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
+        },
+        include: { usages: true },
+      });
+
+      if (!coupon) {
+        return NextResponse.json({ error: 'Coupon is invalid or expired.' }, { status: 400 });
+      }
+
+      const totalUsage = coupon.usages.length;
+      const userUsage = coupon.usages.filter((u) => u.userId === authSession.user.id).length;
+      if (coupon.usageLimit !== null && totalUsage >= coupon.usageLimit) {
+        return NextResponse.json({ error: 'Coupon usage limit reached.' }, { status: 400 });
+      }
+      if (coupon.perUserLimit !== null && userUsage >= coupon.perUserLimit) {
+        return NextResponse.json({ error: 'You have already used this coupon.' }, { status: 400 });
+      }
+
+      const stripeCoupon = await stripe.coupons.create(
+        coupon.isFixed
+          ? {
+              amount_off: Math.min(Math.round(coupon.discount * 100), Math.round(subtotal * 100)),
+              currency: 'usd',
+              duration: 'once',
+              name: coupon.code,
+            }
+          : {
+              percent_off: Math.min(coupon.discount, 100),
+              duration: 'once',
+              name: coupon.code,
+            }
+      );
+      discounts = [{ coupon: stripeCoupon.id }];
+      couponMeta = { id: coupon.id, code: coupon.code, discount: coupon.discount, isFixed: coupon.isFixed };
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000';
-
-    const session = await stripe.checkout.sessions.create({
+    const stripeSession = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
       customer_email: email,
-      metadata: { userId: userId ?? '', email },
-      success_url: `${baseUrl}/checkout?success=true&session_id={CHECKOUT_SESSION_ID}`,
+      metadata: {
+        userId: authSession.user.id,
+        email,
+        shippingName: `${shipping.firstName} ${shipping.lastName}`.trim(),
+        shippingAddress: shipping.address,
+        shippingCity: shipping.city,
+        shippingCountry: shipping.country,
+        shippingZip: shipping.zip,
+        shippingPhone: shipping.phone,
+        couponId: couponMeta?.id ?? '',
+        couponCode: couponMeta?.code ?? '',
+      },
+      discounts,
+      success_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/checkout?canceled=true`,
       shipping_address_collection: { allowed_countries: ['US', 'GB', 'FR', 'AE', 'DE', 'AU', 'IN'] },
-      allow_promotion_codes: true,
     });
 
-    return NextResponse.json({ url: session.url });
+    const meta = getRequestMeta(req);
+    await auditLog({
+      action: 'CHECKOUT_CREATE',
+      actorUserId: authSession.user.id,
+      targetType: 'StripeCheckoutSession',
+      targetId: stripeSession.id,
+      ip: meta.ip,
+      userAgent: meta.userAgent,
+      metadata: { subtotal, itemCount: items.length, couponCode: couponMeta?.code },
+    });
+
+    return NextResponse.json({ url: stripeSession.url });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: 'Invalid request data' }, { status: 400 });

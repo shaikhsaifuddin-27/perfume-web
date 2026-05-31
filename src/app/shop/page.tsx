@@ -12,13 +12,16 @@ export const dynamic = 'force-dynamic';
 export default async function ShopPage() {
   // Fetch products and categories on the server
   const products = await prisma.product.findMany({
+    where: { isActive: true, deletedAt: null },
     include: {
       category: true,
       sizes: true,
     }
   });
 
-  const categories = await prisma.category.findMany();
+  const categories = await prisma.category.findMany({
+    where: { products: { some: { isActive: true, deletedAt: null } } },
+  });
 
   return (
     <>

@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(products);
     }
 
-    const where: Prisma.ProductWhereInput = {};
+    const where: Prisma.ProductWhereInput = { isActive: true, deletedAt: null };
 
     if (search) {
       where.OR = [

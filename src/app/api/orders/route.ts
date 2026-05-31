@@ -21,6 +21,8 @@ export async function GET(req: NextRequest) {
         skip: (page - 1) * limit,
         take: limit,
         include: {
+          returns: true,
+          refunds: true,
           items: {
             include: {
               productSize: {

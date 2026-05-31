@@ -3,10 +3,12 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
 import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
+import { verifyMfaToken } from '@/lib/mfa';
 
 const credentialsSchema = z.object({
   email: z.string().email(),
   password: z.string().min(1),
+  mfaCode: z.string().optional(),
 });
 
 export const authOptions: NextAuthOptions = {
@@ -31,7 +33,7 @@ export const authOptions: NextAuthOptions = {
           throw new Error('Invalid input');
         }
 
-        const { email, password } = parsed.data;
+        const { email, password, mfaCode } = parsed.data;
 
         const user = await prisma.user.findUnique({ where: { email } });
 
@@ -46,11 +48,18 @@ export const authOptions: NextAuthOptions = {
           throw new Error('Invalid credentials');
         }
 
+        if (user.mfaEnabled) {
+          if (!mfaCode || !user.mfaSecret || !verifyMfaToken(mfaCode, user.mfaSecret)) {
+            throw new Error('Invalid MFA code');
+          }
+        }
+
         return {
           id: user.id,
           email: user.email,
           name: user.name,
           role: user.role,
+          mfaEnabled: user.mfaEnabled,
         };
       },
     }),
@@ -60,6 +69,7 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.id = user.id;
         token.role = user.role;
+        token.mfaEnabled = user.mfaEnabled;
       }
       return token;
     },
@@ -67,6 +77,7 @@ export const authOptions: NextAuthOptions = {
       if (session.user) {
         session.user.id = token.id;
         session.user.role = token.role;
+        session.user.mfaEnabled = token.mfaEnabled;
       }
       return session;
     },

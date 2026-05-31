@@ -10,11 +10,11 @@ import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import styles from './checkout.module.css';
 
-type Step = 'info' | 'shipping' | 'payment' | 'success';
+type Step = 'info' | 'shipping' | 'payment';
 
 export default function CheckoutPage() {
-  const { data: session } = useSession();
-  const { cart, cartTotal, clearCart } = useStore();
+  const { data: session, status } = useSession();
+  const { cart, cartTotal } = useStore();
   const [step, setStep] = useState<Step>('info');
   const [form, setForm] = useState({
     email: '',
@@ -28,7 +28,7 @@ export default function CheckoutPage() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [orderNum, setOrderNum] = useState<string>('');
+  const [couponCode, setCouponCode] = useState('');
 
   const total = cartTotal();
 
@@ -44,20 +44,13 @@ export default function CheckoutPage() {
     }
   }, [session]);
 
-  // Handle Stripe Success Callback redirect
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    if (params.get('success') === 'true') {
-      const sessionId = params.get('session_id') || '';
-      // Generate order number based on session ID prefix or random
-      setOrderNum(`ME-${sessionId.slice(8, 14).toUpperCase() || Math.floor(Math.random() * 900000 + 100000)}`);
-      clearCart();
-      setStep('success');
-    } else if (params.get('canceled') === 'true') {
+    if (params.get('canceled') === 'true') {
       setError('Checkout was canceled. You can modify your bag and try again.');
       setStep('payment');
     }
-  }, [clearCart]);
+  }, []);
 
   const update = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm(f => ({ ...f, [k]: e.target.value }));
@@ -78,7 +71,8 @@ export default function CheckoutPage() {
             quantity: item.quantity,
           })),
           email: form.email,
-          userId: session?.user?.id || undefined,
+          couponCode: couponCode.trim() || undefined,
+          shipping: form,
         }),
       });
 
@@ -100,20 +94,31 @@ export default function CheckoutPage() {
     }
   };
 
-  if (step === 'success') {
+  if (status === 'loading') {
     return (
       <>
         <Navbar /><CartDrawer /><SearchOverlay />
         <div className={styles.success}>
-          <div className={styles.successIcon}><i className="fa-solid fa-check"></i></div>
-          <p className="overline" style={{ marginBottom: 16 }}>Order Confirmed</p>
-          <h1 className={styles.successTitle}>Thank You For Your Order</h1>
+          <p className="overline" style={{ marginBottom: 16 }}>Checking Session</p>
+          <h1 className={styles.successTitle}>Loading Checkout</h1>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
+  if (!session) {
+    return (
+      <>
+        <Navbar /><CartDrawer /><SearchOverlay />
+        <div className={styles.success}>
+          <p className="overline" style={{ marginBottom: 16 }}>Secure Checkout</p>
+          <h1 className={styles.successTitle}>Sign In Required</h1>
           <div className="divider-gold"></div>
           <p className={styles.successSub}>
-            Your payment was processed successfully. A confirmation has been sent to your email. Your fragrance will be carefully packaged and dispatched within 1-2 business days.
+            Please sign in before checkout so your payment can be securely linked to your order history.
           </p>
-          <p className={styles.orderNum}>Order {orderNum}</p>
-          <Link href="/" className="btn-gold">Return to Maison</Link>
+          <Link href="/account" className="btn-gold">Sign In</Link>
         </div>
         <Footer />
       </>
@@ -260,6 +265,13 @@ export default function CheckoutPage() {
             })}
           </div>
           <div className={styles.summaryTotals}>
+            <input
+              className="input-luxury"
+              placeholder="Coupon code"
+              value={couponCode}
+              onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+              style={{ marginBottom: 14 }}
+            />
             <div className={styles.totalRow}><span>Subtotal</span><span>${total.toLocaleString()}</span></div>
             <div className={styles.totalRow}><span>Shipping</span><span className={styles.free}>Free</span></div>
             <div className={styles.totalRow}><span>Tax (8%)</span><span>${(total * 0.08).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></div>

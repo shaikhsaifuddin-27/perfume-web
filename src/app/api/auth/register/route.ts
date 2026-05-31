@@ -1,7 +1,9 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
+import { auditLog } from '@/lib/audit';
+import { getRequestMeta } from '@/lib/requestMeta';
 
 const registerSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -14,7 +16,7 @@ const registerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters').max(100),
 });
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { email, password, name } = registerSchema.parse(body);
@@ -29,6 +31,13 @@ export async function POST(req: Request) {
     const user = await prisma.user.create({
       data: { email, name, password: hashedPassword },
       select: { id: true, email: true, name: true, createdAt: true },
+    });
+    const meta = getRequestMeta(req);
+    await auditLog({
+      action: 'REGISTRATION',
+      actorUserId: user.id,
+      ip: meta.ip,
+      userAgent: meta.userAgent,
     });
 
     return NextResponse.json({ user }, { status: 201 });

@@ -18,21 +18,73 @@ enum OrderStatus {
   SHIPPED
   DELIVERED
   CANCELLED
+  RETURN_REQUESTED
+  RETURN_APPROVED
+  REFUNDED
+}
+
+enum ReturnStatus {
+  REQUESTED
+  APPROVED
+  REJECTED
+  RECEIVED
+  REFUNDED
+}
+
+enum RefundStatus {
+  REQUESTED
+  APPROVED
+  REJECTED
+  PROCESSED
+}
+
+enum AuditAction {
+  LOGIN
+  LOGOUT
+  REGISTRATION
+  PROFILE_UPDATE
+  PASSWORD_RESET_REQUEST
+  PASSWORD_RESET_COMPLETE
+  MFA_ENABLED
+  MFA_DISABLED
+  PRODUCT_CREATE
+  PRODUCT_UPDATE
+  PRODUCT_ARCHIVE
+  INVENTORY_UPDATE
+  ORDER_CREATE
+  ORDER_STATUS_UPDATE
+  ORDER_CANCEL
+  RETURN_REQUEST
+  RETURN_STATUS_UPDATE
+  REFUND_REQUEST
+  REFUND_STATUS_UPDATE
+  COUPON_CREATE
+  COUPON_UPDATE
+  COUPON_ARCHIVE
+  CHECKOUT_CREATE
+  STRIPE_WEBHOOK
 }
 
 model User {
-  id            String    @id @default(uuid())
-  email         String    @unique
-  name          String?
-  password      String?
-  role          Role      @default(USER)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  
-  orders        Order[]
-  reviews       Review[]
-  wishlist      WishlistItem[]
-  addresses     Address[]
+  id         String   @id @default(uuid())
+  email      String   @unique
+  name       String?
+  phone      String?
+  password   String?
+  role       Role     @default(USER)
+  mfaEnabled Boolean  @default(false)
+  mfaSecret  String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  orders              Order[]
+  reviews             Review[]
+  wishlist            WishlistItem[]
+  addresses           Address[]
+  passwordResetTokens PasswordResetToken[]
+  mfaRecoveryCodes    MfaRecoveryCode[]
+  couponUsages        CouponUsage[]
+  auditLogs           AuditLog[]
 }
 
 model Category {
@@ -43,21 +95,24 @@ model Category {
 }
 
 model Product {
-  id            String    @id @default(uuid())
-  name          String    @unique
-  tagline       String
-  description   String
-  ingredients   String?
-  image         String
-  badge         String?
-  isNew         Boolean   @default(false)
-  isBestSeller  Boolean   @default(false)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  
-  categoryId    String
-  category      Category  @relation(fields: [categoryId], references: [id])
-  
+  id           String    @id @default(uuid())
+  name         String    @unique
+  tagline      String
+  description  String
+  ingredients  String?
+  image        String
+  badge        String?
+  isNew        Boolean   @default(false)
+  isBestSeller Boolean   @default(false)
+  isActive     Boolean   @default(true)
+  archivedAt   DateTime?
+  deletedAt    DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
   sizes         ProductSize[]
   notes         ProductNote[]
   reviews       Review[]
@@ -65,15 +120,15 @@ model Product {
 }
 
 model ProductSize {
-  id          String   @id @default(uuid())
-  ml          Int
-  price       Float
+  id            String  @id @default(uuid())
+  ml            Int
+  price         Float
   originalPrice Float?
-  stock       Int      @default(0)
-  productId   String
-  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  
-  orderItems  OrderItem[]
+  stock         Int     @default(0)
+  productId     String
+  product       Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  orderItems OrderItem[]
 }
 
 enum NoteType {
@@ -83,85 +138,195 @@ enum NoteType {
 }
 
 model ProductNote {
-  id          String   @id @default(uuid())
-  name        String
-  type        NoteType
-  productId   String
-  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  id        String   @id @default(uuid())
+  name      String
+  type      NoteType
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model Address {
-  id          String   @id @default(uuid())
-  firstName   String
-  lastName    String
-  address     String
-  city        String
-  country     String
-  zip         String
-  phone       String
-  isDefault   Boolean  @default(false)
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String  @id @default(uuid())
+  firstName String
+  lastName  String
+  address   String
+  city      String
+  country   String
+  zip       String
+  phone     String
+  isDefault Boolean @default(false)
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Order {
-  id          String      @id @default(uuid())
-  status      OrderStatus @default(PENDING)
-  total       Float
-  tax         Float
-  shipping    Float
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  
-  userId      String
-  user        User        @relation(fields: [userId], references: [id])
-  
-  items       OrderItem[]
+  id              String      @id @default(uuid())
+  status          OrderStatus @default(PENDING)
+  total           Float
+  tax             Float
+  shipping        Float
+  subtotal        Float       @default(0)
+  discountTotal   Float       @default(0)
+  email           String
+  shippingName    String?
+  shippingAddress String?
+  shippingCity    String?
+  shippingCountry String?
+  shippingZip     String?
+  shippingPhone   String?
+  stripeSessionId String?     @unique
+  paymentIntentId String?
+  paymentStatus   String?
+  couponCode      String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  userId   String
+  user     User    @relation(fields: [userId], references: [id])
+  couponId String?
+  coupon   Coupon? @relation(fields: [couponId], references: [id])
+
+  items   OrderItem[]
+  returns ReturnRequest[]
+  refunds RefundRequest[]
 }
 
 model OrderItem {
-  id            String      @id @default(uuid())
-  quantity      Int
-  priceAtTime   Float
-  
-  orderId       String
-  order         Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  
+  id           String @id @default(uuid())
+  quantity     Int
+  priceAtTime  Float
+  productName  String @default("")
+  productImage String @default("")
+  sizeMl       Int    @default(0)
+
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
   productSizeId String
   productSize   ProductSize @relation(fields: [productSizeId], references: [id])
 }
 
 model Review {
-  id          String   @id @default(uuid())
-  rating      Int
-  comment     String?
-  createdAt   DateTime @default(now())
-  
-  userId      String
-  user        User     @relation(fields: [userId], references: [id])
-  
-  productId   String
-  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  id        String   @id @default(uuid())
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model WishlistItem {
-  id          String   @id @default(uuid())
-  createdAt   DateTime @default(now())
-  
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  productId   String
-  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@unique([userId, productId])
 }
 
 model Coupon {
-  id          String   @id @default(uuid())
-  code        String   @unique
-  discount    Float    // percentage or fixed based on type
-  isFixed     Boolean  @default(false)
-  expiresAt   DateTime?
-  isActive    Boolean  @default(true)
+  id           String        @id @default(uuid())
+  code         String        @unique
+  discount     Float // percentage or fixed based on type
+  isFixed      Boolean       @default(false)
+  expiresAt    DateTime?
+  isActive     Boolean       @default(true)
+  usageLimit   Int?
+  perUserLimit Int?
+  archivedAt   DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  orders       Order[]
+  usages       CouponUsage[]
+}
+
+model CouponUsage {
+  id        String   @id @default(uuid())
+  couponId  String
+  coupon    Coupon   @relation(fields: [couponId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orderId   String?
+  createdAt DateTime @default(now())
+
+  @@index([couponId, userId])
+}
+
+model PasswordResetToken {
+  id        String    @id @default(uuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+}
+
+model MfaRecoveryCode {
+  id        String    @id @default(uuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  codeHash  String
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+}
+
+model ReturnRequest {
+  id        String       @id @default(uuid())
+  orderId   String
+  order     Order        @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  userId    String
+  reason    String
+  status    ReturnStatus @default(REQUESTED)
+  adminNote String?
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  @@index([orderId])
+  @@index([userId])
+}
+
+model RefundRequest {
+  id        String       @id @default(uuid())
+  orderId   String
+  order     Order        @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  userId    String
+  amount    Float
+  reason    String
+  status    RefundStatus @default(REQUESTED)
+  adminNote String?
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  @@index([orderId])
+  @@index([userId])
+}
+
+model AuditLog {
+  id          String      @id @default(uuid())
+  action      AuditAction
+  actorUserId String?
+  actor       User?       @relation(fields: [actorUserId], references: [id], onDelete: SetNull)
+  targetType  String?
+  targetId    String?
+  ip          String?
+  userAgent   String?
+  metadata    Json?
+  createdAt   DateTime    @default(now())
+
+  @@index([action])
+  @@index([actorUserId])
+  @@index([targetType, targetId])
 }

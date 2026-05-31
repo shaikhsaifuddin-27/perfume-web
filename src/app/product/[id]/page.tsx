@@ -23,7 +23,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
     }
   });
 
-  if (!product) return notFound();
+  if (!product || !product.isActive || product.deletedAt) return notFound();
 
   // Fetch related products
   const related = await prisma.product.findMany({
@@ -32,7 +32,9 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         { categoryId: product.categoryId },
         { isBestSeller: true }
       ],
-      NOT: { id: product.id }
+      NOT: { id: product.id },
+      isActive: true,
+      deletedAt: null,
     },
     take: 3,
     include: {
