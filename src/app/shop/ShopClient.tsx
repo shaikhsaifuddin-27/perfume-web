@@ -2,10 +2,11 @@
 import { useState, useMemo } from 'react';
 import ProductCard from '@/components/product/ProductCard';
 import styles from './shop.module.css';
+import { ProductListItem } from '@/types/product';
 
 interface ShopClientProps {
-  initialProducts: any[];
-  categories: any[];
+  initialProducts: ProductListItem[];
+  categories: Array<{ id: string; name: string }>;
 }
 
 export default function ShopClient({ initialProducts, categories }: ShopClientProps) {
@@ -20,14 +21,14 @@ export default function ShopClient({ initialProducts, categories }: ShopClientPr
     
     // Use the first size's price for filtering in the list view
     list = list.filter(p => {
-      const minPrice = Math.min(...p.sizes.map((s: any) => s.price));
+      const minPrice = Math.min(...p.sizes.map((s) => s.price));
       return minPrice >= priceRange[0] && minPrice <= priceRange[1];
     });
 
     if (sortBy === 'price-asc') {
-      list.sort((a, b) => Math.min(...a.sizes.map((s: any) => s.price)) - Math.min(...b.sizes.map((s: any) => s.price)));
+      list.sort((a, b) => Math.min(...a.sizes.map((s) => s.price)) - Math.min(...b.sizes.map((s) => s.price)));
     } else if (sortBy === 'price-desc') {
-      list.sort((a, b) => Math.min(...b.sizes.map((s: any) => s.price)) - Math.min(...a.sizes.map((s: any) => s.price)));
+      list.sort((a, b) => Math.min(...b.sizes.map((s) => s.price)) - Math.min(...a.sizes.map((s) => s.price)));
     }
     
     return list;

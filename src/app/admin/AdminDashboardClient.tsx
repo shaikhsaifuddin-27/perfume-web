@@ -68,7 +68,19 @@ interface AnalyticsData {
   topProducts: { name: string; revenue: number; unitsSold: number; image: string }[];
 }
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+interface TooltipPayloadItem {
+  name: string;
+  value: number | string;
+  color: string;
+}
+
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: TooltipPayloadItem[];
+  label?: string;
+}
+
+const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (!active || !payload?.length) return null;
   return (
     <div
@@ -81,7 +93,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
       }}
     >
       <p style={{ color: '#888', marginBottom: 6, margin: 0 }}>{label}</p>
-      {payload.map((p: any) => (
+      {payload.map((p) => (
         <p key={p.name} style={{ color: p.color, margin: '4px 0', fontWeight: 600 }}>
           {p.name === 'revenue' || p.name === 'Revenue'
             ? `$${numberFormatter.format(Number(p.value))}`
@@ -128,29 +140,34 @@ export default function AdminDashboardClient({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    fetch(`/api/admin/analytics?days=${chartDays}`)
-      .then((r) => r.json())
-      .then((data) => {
+    async function fetchAnalytics() {
+      setLoading(true);
+      try {
+        const r = await fetch(`/api/admin/analytics?days=${chartDays}`);
+        const data = await r.json();
         setAnalytics(data);
+      } catch {
+        // analytics failed — leave previous data
+      } finally {
         setLoading(false);
-      })
-      .catch(() => setLoading(false));
+      }
+    }
+    fetchAnalytics();
   }, [chartDays]);
 
-  const activityIcons: Record<string, string> = {
+  const activityIcons: Readonly<Record<string, string>> = {
     ORDER: '🛍️',
     REFUND: '💸',
     SIGNUP: '👤',
     STOCK: '📦',
-  };
+  } as const;
 
-  const activityColors: Record<string, string> = {
+  const activityColors: Readonly<Record<string, string>> = {
     ORDER: '#33CC66',
     REFUND: '#FF3333',
     SIGNUP: '#3399FF',
     STOCK: '#FF9900',
-  };
+  } as const;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>

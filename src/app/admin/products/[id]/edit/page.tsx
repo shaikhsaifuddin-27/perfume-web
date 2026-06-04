@@ -56,7 +56,7 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 24 }}>
         {/* Main Form */}
-        <form action={updateAction} encType="multipart/form-data">
+        <form action={updateAction}>
           <div style={{ background: '#0F0F0F', border: '1px solid #1E1E1E', borderRadius: 14, padding: 28, marginBottom: 16 }}>
             <h2 style={{ fontSize: 14, fontWeight: 600, color: '#F5F0E8', margin: '0 0 20px', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
               Product Details

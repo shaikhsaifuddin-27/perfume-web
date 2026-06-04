@@ -17,10 +17,15 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
     include: {
       category: true,
       sizes: {
-        orderBy: { ml: 'asc' }
+        orderBy: { ml: 'asc' },
       },
       notes: true,
-    }
+      reviews: {
+        include: { user: { select: { name: true } } },
+        orderBy: { createdAt: 'desc' },
+      },
+      _count: { select: { reviews: true } },
+    },
   });
 
   if (!product || !product.isActive || product.deletedAt) return notFound();
@@ -28,10 +33,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   // Fetch related products
   const related = await prisma.product.findMany({
     where: {
-      OR: [
-        { categoryId: product.categoryId },
-        { isBestSeller: true }
-      ],
+      OR: [{ categoryId: product.categoryId }, { isBestSeller: true }],
       NOT: { id: product.id },
       isActive: true,
       deletedAt: null,
@@ -39,8 +41,9 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
     take: 3,
     include: {
       sizes: true,
-      category: true,
-    }
+      category: { select: { name: true, id: true } },
+      _count: { select: { reviews: true } },
+    },
   });
 
   return (

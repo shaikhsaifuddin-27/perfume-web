@@ -1,26 +1,33 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useSyncExternalStore, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useStore } from '@/store/useStore';
 import ProductCard from '@/components/product/ProductCard';
 import styles from './product.module.css';
+import { ProductWithRelations, ProductListItem } from '@/types/product';
 
 interface ProductDetailClientProps {
-  product: any;
-  related: any[];
+  product: ProductWithRelations;
+  related: ProductListItem[];
+}
+
+function subscribe(cb: () => void) {
+  window.addEventListener('storage', cb);
+  return () => window.removeEventListener('storage', cb);
 }
 
 export default function ProductDetailClient({ product, related }: ProductDetailClientProps) {
-  const [mounted, setMounted] = useState(false);
   const { addToCart, toggleWishlist, wishlist } = useStore();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false
+  );
 
   const isWishlisted = mounted && wishlist.includes(product.id);
-  
+
   // Find the first size or default
   const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
   const [qty, setQty] = useState(1);
@@ -67,7 +74,7 @@ export default function ProductDetailClient({ product, related }: ProductDetailC
           <div className={styles.sizeSection}>
             <p className={styles.sizeLabel}>Size: <strong>{selectedSize.ml}ml</strong></p>
             <div className={styles.sizes}>
-              {product.sizes.map((s: any) => (
+              {product.sizes.map((s) => (
                 <button
                   key={s.id}
                   className={`${styles.sizeBtn} ${selectedSize.id === s.id ? styles.sizeBtnActive : ''}`}
@@ -89,7 +96,25 @@ export default function ProductDetailClient({ product, related }: ProductDetailC
             <button
               className="btn-gold"
               style={{ flex: 1, justifyContent: 'center' }}
-              onClick={() => { addToCart(product, selectedSize.ml); }}
+              onClick={() => {
+                const cartProduct = {
+                  id: product.id,
+                  name: product.name,
+                  tagline: product.tagline,
+                  price: selectedSize.price,
+                  image: product.image,
+                  badge: product.badge,
+                  isNew: product.isNew,
+                  isBestSeller: product.isBestSeller,
+                  sizes: product.sizes.map((s) => ({
+                    id: s.id,
+                    ml: s.ml,
+                    price: s.price,
+                    originalPrice: s.originalPrice,
+                  })),
+                };
+                addToCart(cartProduct, selectedSize.ml, qty);
+              }}
             >
               Add to Bag — ${(selectedSize.price * qty).toLocaleString()}
             </button>
@@ -128,14 +153,14 @@ export default function ProductDetailClient({ product, related }: ProductDetailC
             {tab === 'description' && <p className={styles.desc}>{product.description}</p>}
             {tab === 'notes' && (
               <div className={styles.notes}>
-                {['TOP', 'HEART', 'BASE'].map(tier => {
-                  const notes = product.notes.filter((n: any) => n.type === tier);
+                {(['TOP', 'HEART', 'BASE'] as const).map(tier => {
+                  const notes = product.notes.filter((n) => n.type === tier);
                   if (notes.length === 0) return null;
                   return (
                     <div key={tier} className={styles.noteTier}>
                       <p className={styles.noteTierLabel}>{tier} Notes</p>
                       <div className={styles.noteTags}>
-                        {notes.map((n: any) => <span key={n.id} className={styles.noteTag}>{n.name}</span>)}
+                        {notes.map((n) => <span key={n.id} className={styles.noteTag}>{n.name}</span>)}
                       </div>
                     </div>
                   );

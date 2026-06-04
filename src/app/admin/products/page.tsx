@@ -92,7 +92,7 @@ export default async function AdminProductsPage({
         <h2 style={{ fontSize: 16, fontWeight: 600, color: '#F5F0E8', margin: '0 0 20px' }}>
           Add New Fragrance
         </h2>
-        <form action={createProductAction} encType="multipart/form-data">
+        <form action={createProductAction}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16, marginBottom: 16 }}>
             <div>
               <label style={{ fontSize: 11, color: '#555', display: 'block', marginBottom: 6, letterSpacing: '0.1em', textTransform: 'uppercase' }}>

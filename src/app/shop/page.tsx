@@ -14,9 +14,10 @@ export default async function ShopPage() {
   const products = await prisma.product.findMany({
     where: { isActive: true, deletedAt: null },
     include: {
-      category: true,
+      category: { select: { name: true, id: true } },
       sizes: true,
-    }
+      _count: { select: { reviews: true } },
+    },
   });
 
   const categories = await prisma.category.findMany({
@@ -34,11 +35,20 @@ export default async function ShopPage() {
           <p className="overline" style={{ marginBottom: 16 }}>Maison Élara</p>
           <h1 className={styles.heroTitle}>The Collections</h1>
           <div className="divider-gold"></div>
-          <p className={styles.heroSub}>Each fragrance is a world unto itself. Explore, discover, and find the one that speaks to your soul.</p>
+          <p className={styles.heroSub}>
+            Each fragrance is a world unto itself. Explore, discover, and find the one that speaks to your soul.
+          </p>
         </div>
       </div>
 
-      <Suspense fallback={<div className="page-loader"><div className="loader-logo">MAISON ÉLARA</div><div className="loader-line"></div></div>}>
+      <Suspense
+        fallback={
+          <div className="page-loader">
+            <div className="loader-logo">MAISON ÉLARA</div>
+            <div className="loader-line"></div>
+          </div>
+        }
+      >
         <ShopClient initialProducts={products} categories={categories} />
       </Suspense>
 

@@ -16,22 +16,26 @@ export default function WishlistPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (wishlist.length === 0) {
-      setWishlistProducts([]);
-      setLoading(false);
-      return;
-    }
-
-    setLoading(true);
-    fetch(`/api/products?ids=${wishlist.join(',')}`)
-      .then((res) => res.json())
-      .then((data) => {
+    async function fetchWishlist() {
+      if (wishlist.length === 0) {
+        setWishlistProducts([]);
+        setLoading(false);
+        return;
+      }
+      setLoading(true);
+      try {
+        const res = await fetch(`/api/products?ids=${wishlist.join(',')}`);
+        const data = await res.json();
         if (Array.isArray(data)) {
           setWishlistProducts(data);
         }
-      })
-      .catch((err) => console.error('Failed to fetch wishlist products:', err))
-      .finally(() => setLoading(false));
+      } catch (err) {
+        console.error('Failed to fetch wishlist products:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchWishlist();
   }, [wishlist]);
 
   return (

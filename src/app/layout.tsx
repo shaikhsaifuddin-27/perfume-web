@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import AuthProvider from '@/components/providers/AuthProvider';
 import { Cormorant_Garamond, Montserrat } from 'next/font/google';
 import './globals.css';
+import CookieConsent from '@/components/layout/CookieConsent';
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -60,7 +61,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="theme-color" content="#0A0A0A" />
       </head>
       <body>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          {children}
+          <CookieConsent />
+        </AuthProvider>
       </body>
     </html>
   );

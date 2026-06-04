@@ -4,10 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ProductCard from '@/components/product/ProductCard';
 import styles from './Home.module.css';
+import { ProductListItem } from '@/types/product';
 
 interface HomeClientProps {
-  bestSellers: any[];
-  newArrivals: any[];
+  bestSellers: ProductListItem[];
+  newArrivals: ProductListItem[];
 }
 
 export default function HomeClient({ bestSellers, newArrivals }: HomeClientProps) {
@@ -29,7 +30,7 @@ export default function HomeClient({ bestSellers, newArrivals }: HomeClientProps
   ];
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoaded(true), 1200);
+    const timer = setTimeout(() => setLoaded(true), 3000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -45,6 +46,10 @@ export default function HomeClient({ bestSellers, newArrivals }: HomeClientProps
 
   useEffect(() => {
     if (!loaded) return;
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+      document.querySelectorAll('.fade-up, .fade-in').forEach(el => el.classList.add('visible'));
+      return;
+    }
     observerRef.current = new IntersectionObserver(
       (entries) => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } }),
       { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }

@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
@@ -41,7 +42,11 @@ async function main() {
 
   const p1 = await prisma.product.upsert({
     where: { name: 'Noir Absolu' },
-    update: {},
+    update: {
+      isBestSeller: true,
+      isActive: true,
+      deletedAt: null,
+    },
     create: {
       name: 'Noir Absolu',
       tagline: 'The essence of midnight',
@@ -49,6 +54,8 @@ async function main() {
       ingredients: 'Alcohol Denat., Fragrance (Parfum), Water (Aqua), Benzyl Salicylate, Linalool, Hexyl Cinnamal, Coumarin.',
       image: '/product_noir.png',
       badge: 'Best Seller',
+      isBestSeller: true,
+      isActive: true,
       categoryId: category1.id,
       sizes: {
         create: [
@@ -72,12 +79,18 @@ async function main() {
 
   const p2 = await prisma.product.upsert({
     where: { name: 'Jasmine Absolue' },
-    update: {},
+    update: {
+      isBestSeller: true,
+      isActive: true,
+      deletedAt: null,
+    },
     create: {
       name: 'Jasmine Absolue',
       tagline: 'A bloom in the dark',
       description: 'Sourced from the finest night-blooming jasmine in Grasse, this luminous floral composition is grounded by warm amber and white woods. It is a study in contrasts: delicate yet powerful, innocent yet deeply sensual.',
       image: '/product_jasmine.png',
+      isBestSeller: true,
+      isActive: true,
       categoryId: category1.id,
       sizes: {
         create: [
@@ -122,12 +135,18 @@ async function main() {
 
   const p4 = await prisma.product.upsert({
     where: { name: 'Amber Nuit' },
-    update: {},
+    update: {
+      isBestSeller: true,
+      isActive: true,
+      deletedAt: null,
+    },
     create: {
       name: 'Amber Nuit',
       tagline: 'Warmth of the evening',
       description: 'A cozy, enveloping amber fragrance spiced with cardamom and softened by iris. It wraps around you like a cashmere coat on a brisk autumn evening.',
       image: '/product_amber.png',
+      isBestSeller: true,
+      isActive: true,
       categoryId: category1.id,
       sizes: {
         create: [

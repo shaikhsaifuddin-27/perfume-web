@@ -8,22 +8,23 @@ import HomeClient from './HomeClient';
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  // Fetch products from database
   const bestSellers = await prisma.product.findMany({
-    where: { isBestSeller: true },
+    where: { isBestSeller: true, isActive: true, deletedAt: null },
     take: 3,
     include: {
-      category: true,
+      category: { select: { name: true, id: true } },
       sizes: true,
+      _count: { select: { reviews: true } },
     }
   });
 
   const newArrivals = await prisma.product.findMany({
-    where: { isNew: true },
+    where: { isNew: true, isActive: true, deletedAt: null },
     take: 2,
     include: {
-      category: true,
+      category: { select: { name: true, id: true } },
       sizes: true,
+      _count: { select: { reviews: true } },
     }
   });
 

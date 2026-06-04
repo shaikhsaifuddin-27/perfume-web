@@ -2,9 +2,12 @@ import { prisma } from '@/lib/prisma';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { OrderStatusSelect } from './OrderStatusSelect';
+import { OrderStatus } from '@prisma/client';
 
 export const metadata: Metadata = { title: 'Orders | Maison Élara Admin' };
 export const dynamic = 'force-dynamic';
+
+const PAGE_SIZE = 30;
 
 const STATUS_COLORS: Record<string, string> = {
   PENDING: '#FF9900',
@@ -17,39 +20,49 @@ const STATUS_COLORS: Record<string, string> = {
 export default async function AdminOrdersPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string; q?: string }>;
+  searchParams: Promise<{ status?: string; q?: string; page?: string }>;
 }) {
   const sp = await searchParams;
   const statusFilter = sp?.status?.toUpperCase();
   const query = sp?.q ?? '';
+  const page = Math.max(1, parseInt(sp?.page ?? '1', 10));
 
-  const orders = await prisma.order.findMany({
-    where: {
-      ...(statusFilter && statusFilter !== 'ALL'
-        ? { status: statusFilter as any }
-        : {}),
-      ...(query
-        ? {
-            OR: [
-              { id: { contains: query, mode: 'insensitive' } },
-              { user: { name: { contains: query, mode: 'insensitive' } } },
-              { user: { email: { contains: query, mode: 'insensitive' } } },
-            ],
-          }
-        : {}),
-    },
-    orderBy: { createdAt: 'desc' },
-    include: {
-      user: { select: { name: true, email: true } },
-      items: {
-        include: {
-          productSize: {
-            include: { product: { select: { name: true, image: true } } },
+  const where = {
+    ...(statusFilter && statusFilter !== 'ALL'
+      ? { status: statusFilter as OrderStatus }
+      : {}),
+    ...(query
+      ? {
+          OR: [
+            { id: { contains: query, mode: 'insensitive' as const } },
+            { user: { name: { contains: query, mode: 'insensitive' as const } } },
+            { user: { email: { contains: query, mode: 'insensitive' as const } } },
+          ],
+        }
+      : {}),
+  };
+
+  const [orders, totalOrders] = await Promise.all([
+    prisma.order.findMany({
+      where,
+      orderBy: { createdAt: 'desc' },
+      skip: (page - 1) * PAGE_SIZE,
+      take: PAGE_SIZE,
+      include: {
+        user: { select: { name: true, email: true } },
+        items: {
+          include: {
+            productSize: {
+              include: { product: { select: { name: true, image: true } } },
+            },
           },
         },
       },
-    },
-  });
+    }),
+    prisma.order.count({ where }),
+  ]);
+
+  const totalPages = Math.ceil(totalOrders / PAGE_SIZE);
 
   // Summary counts
   const counts = await prisma.order.groupBy({
@@ -253,6 +266,59 @@ export default async function AdminOrdersPage({
           </div>
         )}
       </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 20 }}>
+          <p style={{ fontSize: 12, color: '#444' }}>
+            Page {page} of {totalPages} · {totalOrders} total orders
+          </p>
+          <div style={{ display: 'flex', gap: 8 }}>
+            {page > 1 && (
+              <a
+                href={`/admin/orders?${new URLSearchParams({
+                  ...(statusFilter && statusFilter !== 'ALL' ? { status: statusFilter.toLowerCase() } : {}),
+                  ...(query ? { q: query } : {}),
+                  page: String(page - 1),
+                }).toString()}`}
+                style={{
+                  padding: '6px 14px',
+                  background: '#0F0F0F',
+                  border: '1px solid #1E1E1E',
+                  color: '#888',
+                  borderRadius: 7,
+                  fontSize: 12,
+                  textDecoration: 'none',
+                  fontWeight: 500,
+                }}
+              >
+                ← Previous
+              </a>
+            )}
+            {page < totalPages && (
+              <a
+                href={`/admin/orders?${new URLSearchParams({
+                  ...(statusFilter && statusFilter !== 'ALL' ? { status: statusFilter.toLowerCase() } : {}),
+                  ...(query ? { q: query } : {}),
+                  page: String(page + 1),
+                }).toString()}`}
+                style={{
+                  padding: '6px 14px',
+                  background: '#C9A84C',
+                  border: '1px solid #C9A84C',
+                  color: '#050505',
+                  borderRadius: 7,
+                  fontSize: 12,
+                  textDecoration: 'none',
+                  fontWeight: 700,
+                }}
+              >
+                Next →
+              </a>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

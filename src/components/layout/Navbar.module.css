@@ -172,8 +172,200 @@
   z-index: 799;
 }
 
+.authActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.signInBtn, .registerBtn {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.signInBtn {
+  color: rgba(245,240,232,0.8);
+}
+.signInBtn:hover {
+  color: #C9A84C;
+}
+.registerBtn {
+  background: #C9A84C;
+  color: #0A0A0A;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+.registerBtn:hover {
+  background: #E8C97A;
+  transform: translateY(-1px);
+}
+
+/* ── Portal Buttons ── */
+.portalBtnAdmin {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 18px;
+  background: linear-gradient(135deg, #9A7A30, #C9A84C);
+  color: #050505;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 rgba(201,168,76,0);
+  white-space: nowrap;
+}
+.portalBtnAdmin:hover {
+  background: linear-gradient(135deg, #B08A38, #E8C97A);
+  box-shadow: 0 0 16px rgba(201,168,76,0.4);
+  transform: translateY(-1px);
+}
+.portalBtnAdmin i { font-size: 12px; }
+
+.portalBtnUser {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  background: rgba(201,168,76,0.06);
+  border: 1px solid rgba(201,168,76,0.25);
+  color: rgba(245,240,232,0.85);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+.portalBtnUser:hover {
+  color: #C9A84C;
+  border-color: #C9A84C;
+  background: rgba(201,168,76,0.1);
+}
+.portalBtnUser i:first-child { font-size: 14px; }
+
+.portalBtnGuest {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 18px;
+  border: 1px solid rgba(201,168,76,0.5);
+  color: #C9A84C;
+  background: rgba(201,168,76,0.04);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  animation: portalPulse 2.8s ease-in-out infinite;
+  white-space: nowrap;
+}
+.portalBtnGuest:hover {
+  background: #C9A84C;
+  color: #050505;
+  animation: none;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(201,168,76,0.3);
+}
+.portalBtnGuest i { font-size: 11px; }
+
+@keyframes portalPulse {
+  0%, 100% { border-color: rgba(201,168,76,0.5); box-shadow: 0 0 0 rgba(201,168,76,0); }
+  50% { border-color: rgba(201,168,76,0.9); box-shadow: 0 0 10px rgba(201,168,76,0.15); }
+}
+
+.dropdownContainer {
+  position: relative;
+}
+.dropdownTrigger {
+  background: none;
+  border: none;
+  color: rgba(245,240,232,0.8);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.3s ease;
+  padding: 8px 12px;
+  border: 1px solid rgba(201,168,76,0.15);
+  background: rgba(201,168,76,0.03);
+}
+.dropdownTrigger:hover {
+  color: #C9A84C;
+  border-color: #C9A84C;
+}
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: #0F0F0F;
+  border: 1px solid rgba(201,168,76,0.2);
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+  z-index: 600;
+}
+.dropdownMenu a, .logoutBtn {
+  padding: 12px 18px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.7);
+  text-decoration: none;
+  text-align: left;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+.dropdownMenu a:hover, .logoutBtn:hover {
+  background: rgba(201,168,76,0.08);
+  color: #C9A84C;
+}
+
+.mobileLogoutBtn {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 300;
+  color: #FF3333;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+  border-bottom: 1px solid rgba(245,240,232,0.06);
+  padding-bottom: 24px;
+  width: 100%;
+}
+
 @media (max-width: 768px) {
   .navbar { padding: 16px 20px; }
   .navbar.scrolled { padding: 12px 20px; }
   .navLinks { display: none; }
+  .authActions, .dropdownContainer { display: none; }
+  .portalBtnAdmin, .portalBtnUser, .portalBtnGuest { display: none; }
 }

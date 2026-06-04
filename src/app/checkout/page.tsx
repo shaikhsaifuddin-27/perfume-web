@@ -29,27 +29,64 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [couponCode, setCouponCode] = useState('');
+  const [couponLoading, setCouponLoading] = useState(false);
+  const [couponResult, setCouponResult] = useState<{
+    valid: boolean;
+    discountAmount?: number;
+    discountLabel?: string;
+    error?: string;
+  } | null>(null);
 
   const total = cartTotal();
+  const discount = couponResult?.valid ? (couponResult.discountAmount ?? 0) : 0;
+  const discountedSubtotal = Math.max(0, total - discount);
+  const taxAmount = discountedSubtotal * 0.08;
+  const grandTotal = discountedSubtotal + taxAmount;
+
+  async function applyCoupon() {
+    if (!couponCode.trim()) return;
+    setCouponLoading(true);
+    setCouponResult(null);
+    try {
+      const res = await fetch('/api/checkout/coupon-validate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ couponCode: couponCode.trim(), subtotal: total }),
+      });
+      const data = await res.json();
+      setCouponResult(data);
+    } catch {
+      setCouponResult({ valid: false, error: 'Failed to validate coupon.' });
+    } finally {
+      setCouponLoading(false);
+    }
+  }
+
 
   // Handle pre-filling user info if logged in
   useEffect(() => {
-    if (session?.user) {
-      setForm(f => ({
-        ...f,
-        email: session.user?.email || '',
-        firstName: session.user?.name?.split(' ')[0] || '',
-        lastName: session.user?.name?.split(' ').slice(1).join(' ') || '',
-      }));
+    async function prefillForm() {
+      if (session?.user) {
+        setForm(f => ({
+          ...f,
+          email: session.user?.email || '',
+          firstName: session.user?.name?.split(' ')[0] || '',
+          lastName: session.user?.name?.split(' ').slice(1).join(' ') || '',
+        }));
+      }
     }
+    prefillForm();
   }, [session]);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('canceled') === 'true') {
-      setError('Checkout was canceled. You can modify your bag and try again.');
-      setStep('payment');
+    async function checkCanceled() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('canceled') === 'true') {
+        setError('Checkout was canceled. You can modify your bag and try again.');
+        setStep('payment');
+      }
     }
+    checkCanceled();
   }, []);
 
   const update = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -86,9 +123,10 @@ export default function CheckoutPage() {
       } else {
         throw new Error('No checkout URL returned from server');
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Stripe redirect error:', err);
-      setError(err.message || 'Payment initiation failed. Please try again.');
+      const message = err instanceof Error ? err.message : 'Payment initiation failed. Please try again.';
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -237,7 +275,7 @@ export default function CheckoutPage() {
                   onClick={handleStripeCheckout}
                   disabled={loading || cart.length === 0}
                 >
-                  {loading ? 'Initializing Payment...' : `Pay Securely via Stripe — $${(total * 1.08).toFixed(2)}`}
+                  {loading ? 'Initializing Payment...' : `Pay Securely via Stripe — $${grandTotal.toFixed(2)}`}
                 </button>
               </div>
             </div>
@@ -265,21 +303,69 @@ export default function CheckoutPage() {
             })}
           </div>
           <div className={styles.summaryTotals}>
-            <input
-              className="input-luxury"
-              placeholder="Coupon code"
-              value={couponCode}
-              onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-              style={{ marginBottom: 14 }}
-            />
+            {/* Coupon Code Row */}
+            <div style={{ display: 'flex', gap: 8, marginBottom: 14 }}>
+              <input
+                className="input-luxury"
+                placeholder="Coupon code"
+                value={couponCode}
+                onChange={(e) => {
+                  setCouponCode(e.target.value.toUpperCase());
+                  if (couponResult) setCouponResult(null);
+                }}
+                onKeyDown={(e) => e.key === 'Enter' && applyCoupon()}
+                style={{ flex: 1 }}
+              />
+              <button
+                onClick={applyCoupon}
+                disabled={couponLoading || !couponCode.trim()}
+                style={{
+                  padding: '0 16px',
+                  background: 'rgba(201,168,76,0.1)',
+                  border: '1px solid rgba(201,168,76,0.3)',
+                  color: '#C9A84C',
+                  borderRadius: 8,
+                  fontSize: 12,
+                  fontWeight: 600,
+                  cursor: couponLoading ? 'not-allowed' : 'pointer',
+                  whiteSpace: 'nowrap',
+                  opacity: couponLoading ? 0.6 : 1,
+                  flexShrink: 0,
+                }}
+              >
+                {couponLoading ? '…' : 'Apply'}
+              </button>
+            </div>
+
+            {/* Coupon Feedback */}
+            {couponResult?.valid && (
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 10px', background: 'rgba(51,204,102,0.06)', border: '1px solid rgba(51,204,102,0.2)', borderRadius: 6, marginBottom: 10 }}>
+                <span style={{ fontSize: 12, color: '#33CC66' }}>
+                  <i className="fa-solid fa-tag" style={{ marginRight: 6 }}></i>
+                  {couponResult.discountLabel} applied
+                </span>
+                <button onClick={() => { setCouponResult(null); setCouponCode(''); }} style={{ background: 'none', border: 'none', color: '#555', cursor: 'pointer', fontSize: 12 }}>✕</button>
+              </div>
+            )}
+            {couponResult && !couponResult.valid && (
+              <p style={{ fontSize: 11, color: '#FF3333', marginBottom: 10 }}>
+                <i className="fa-solid fa-circle-exclamation" style={{ marginRight: 4 }}></i>
+                {couponResult.error}
+              </p>
+            )}
+
             <div className={styles.totalRow}><span>Subtotal</span><span>${total.toLocaleString()}</span></div>
+            {discount > 0 && (
+              <div className={styles.totalRow}><span style={{ color: '#33CC66' }}>Discount</span><span style={{ color: '#33CC66' }}>−${discount.toFixed(2)}</span></div>
+            )}
             <div className={styles.totalRow}><span>Shipping</span><span className={styles.free}>Free</span></div>
-            <div className={styles.totalRow}><span>Tax (8%)</span><span>${(total * 0.08).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></div>
+            <div className={styles.totalRow}><span>Tax (8%)</span><span>${taxAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></div>
             <div className={`${styles.totalRow} ${styles.grandTotal}`}>
               <span>Total</span>
-              <span>${(total * 1.08).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              <span>${grandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </div>
           </div>
+
         </div>
       </div>
       <Footer />

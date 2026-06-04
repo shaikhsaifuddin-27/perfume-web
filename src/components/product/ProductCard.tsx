@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useSyncExternalStore } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useStore } from '@/store/useStore';
@@ -11,13 +11,21 @@ interface Props {
   priority?: boolean;
 }
 
+function subscribe(cb: () => void) {
+  window.addEventListener('storage', cb);
+  return () => window.removeEventListener('storage', cb);
+}
+
 export default function ProductCard({ product, priority = false }: Props) {
-  const [mounted, setMounted] = useState(false);
   const { addToCart, toggleWishlist, wishlist, formatPrice } = useStore();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  // useSyncExternalStore provides a safe server/client hydration guard
+  // without calling setState inside an effect.
+  const mounted = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false
+  );
 
   const isWishlisted = mounted && wishlist.includes(product.id);
 

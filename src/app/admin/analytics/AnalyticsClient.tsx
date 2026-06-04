@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import {
-  AreaChart,
-  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -41,12 +39,24 @@ const roundedNumberFormatter = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 0,
 });
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+interface TooltipPayloadItem {
+  name: string;
+  value: number | string;
+  color: string;
+}
+
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: TooltipPayloadItem[];
+  label?: string;
+}
+
+const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (!active || !payload?.length) return null;
   return (
     <div style={{ background: '#141414', border: '1px solid #2a2a2a', borderRadius: 8, padding: '10px 14px', fontSize: 12 }}>
       <p style={{ color: '#888', margin: '0 0 6px' }}>{label}</p>
-      {payload.map((p: any) => (
+      {payload.map((p) => (
         <p key={p.name} style={{ color: p.color, margin: '3px 0', fontWeight: 600 }}>
           {p.name === 'revenue' || p.name === 'Revenue' ? `$${numberFormatter.format(Number(p.value))}` : p.value} {p.name !== 'revenue' && p.name !== 'Revenue' ? p.name : ''}
         </p>
@@ -61,11 +71,19 @@ export default function AnalyticsClient() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    fetch(`/api/admin/analytics?days=${days}`)
-      .then((r) => r.json())
-      .then((d) => { setData(d); setLoading(false); })
-      .catch(() => setLoading(false));
+    async function fetchAnalytics() {
+      setLoading(true);
+      try {
+        const r = await fetch(`/api/admin/analytics?days=${days}`);
+        const d = await r.json();
+        setData(d);
+      } catch {
+        // analytics fetch failed
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchAnalytics();
   }, [days]);
 
   const totalRevenue = data?.revenueByDay.reduce((s, d) => s + d.revenue, 0) ?? 0;
@@ -188,7 +206,7 @@ export default function AnalyticsClient() {
                 <CartesianGrid strokeDasharray="3 3" stroke="#1a1a1a" horizontal={false} />
                 <XAxis type="number" tick={{ fill: '#444', fontSize: 10 }} tickFormatter={(v) => `$${v}`} />
                 <YAxis type="category" dataKey="category" tick={{ fill: '#666', fontSize: 10 }} width={80} tickFormatter={(v) => v.length > 10 ? v.slice(0, 10) + '…' : v} />
-                <Tooltip contentStyle={{ background: '#141414', border: '1px solid #2a2a2a', borderRadius: 8, fontSize: 12 }} formatter={(v: any) => [`$${numberFormatter.format(Number(v))}`, 'Revenue']} />
+                <Tooltip contentStyle={{ background: '#141414', border: '1px solid #2a2a2a', borderRadius: 8, fontSize: 12 }} formatter={(v: unknown) => [`$${numberFormatter.format(typeof v === 'number' ? v : typeof v === 'string' ? parseFloat(v) || 0 : 0)}`, 'Revenue']} />
                 <Bar dataKey="revenue" radius={[0, 4, 4, 0]} maxBarSize={16}>
                   {(data?.categoryRevenue ?? []).map((_, i) => (
                     <Cell key={i} fill={CATEGORY_COLORS[i % CATEGORY_COLORS.length]} />

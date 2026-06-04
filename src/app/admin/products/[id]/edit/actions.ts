@@ -9,7 +9,8 @@ import { saveProductImage } from '@/lib/productImageUpload';
 
 export async function updateProduct(id: string, formData: FormData) {
   const session = await getServerSession(authOptions);
-  if (!session || session.user.role !== 'ADMIN') throw new Error('Unauthorized');
+  const allowed = ['ADMIN', 'SUPER_ADMIN', 'MANAGER'];
+  if (!session || !allowed.includes(session.user.role)) throw new Error('Unauthorized');
 
   const uploadedImage = await saveProductImage(formData.get('image'));
   const currentImage = (formData.get('currentImage') as string) || '/product_noir.png';

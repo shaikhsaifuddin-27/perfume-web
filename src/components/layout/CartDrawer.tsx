@@ -1,18 +1,20 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useSyncExternalStore } from 'react';
 import { useStore } from '@/store/useStore';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './CartDrawer.module.css';
 
+function subscribe(cb: () => void) {
+  window.addEventListener('storage', cb);
+  return () => window.removeEventListener('storage', cb);
+}
+
 export default function CartDrawer() {
   const { cart, cartOpen, setCartOpen, removeFromCart, updateQty, cartTotal } = useStore();
-  const [mounted, setMounted] = useState(false);
   const total = cartTotal();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useSyncExternalStore(subscribe, () => true, () => false);
 
   if (!mounted) return null;
 

@@ -8,7 +8,8 @@ import { auditLog } from '@/lib/audit';
 
 async function requireAdmin() {
   const session = await getServerSession(authOptions);
-  if (!session || session.user.role !== 'ADMIN') throw new Error('Unauthorized');
+  const allowed = ['ADMIN', 'SUPER_ADMIN'];
+  if (!session || !allowed.includes(session.user.role)) throw new Error('Unauthorized');
   return session;
 }
 

@@ -11,7 +11,8 @@ import { auditLog } from '@/lib/audit';
 /** Reusable auth guard for all admin server actions */
 async function requireAdmin() {
   const session = await getServerSession(authOptions);
-  if (!session || session.user.role !== 'ADMIN') {
+  const allowed = ['ADMIN', 'SUPER_ADMIN', 'MANAGER'];
+  if (!session || !allowed.includes(session.user.role)) {
     throw new Error('Unauthorized');
   }
   return session;

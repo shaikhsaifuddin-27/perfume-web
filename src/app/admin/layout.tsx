@@ -8,7 +8,8 @@ import { prisma } from '@/lib/prisma';
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const session = await getServerSession(authOptions);
 
-  if (!session || session.user.role !== 'ADMIN') {
+  const privilegedRoles = ['ADMIN', 'SUPER_ADMIN', 'MANAGER', 'SUPPORT'];
+  if (!session || !privilegedRoles.includes(session.user.role)) {
     redirect('/account');
   }
 

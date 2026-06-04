@@ -156,6 +156,8 @@ section { position: relative; }
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   gap: 32px;
+  animation: fadeOutLoader 0.5s ease-in-out forwards;
+  animation-delay: 2.5s;
 }
 .loader-logo {
   font-family: var(--font-serif);
@@ -179,6 +181,13 @@ section { position: relative; }
 }
 @keyframes loading { to { left: 100%; } }
 @keyframes pulse { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
+@keyframes fadeOutLoader {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
 
 /* Product Card */
 .product-card {

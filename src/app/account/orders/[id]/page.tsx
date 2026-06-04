@@ -7,6 +7,7 @@ import CartDrawer from '@/components/layout/CartDrawer';
 import SearchOverlay from '@/components/layout/SearchOverlay';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { prisma } from '@/lib/prisma';
+import OrderActionButtonClient from '@/components/account/OrderActionButtonClient';
 
 export default async function OrderTrackingPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await getServerSession(authOptions);
@@ -36,20 +37,18 @@ export default async function OrderTrackingPage({ params }: { params: Promise<{ 
           ))}
         </section>
         <section style={{ display: 'flex', gap: 12, marginTop: 28, flexWrap: 'wrap' }}>
-          {['PENDING', 'PROCESSING'].includes(order.status) && <OrderActionButton orderId={order.id} action="cancel" label="Cancel Order" />}
-          {order.status === 'DELIVERED' && <OrderActionButton orderId={order.id} action="return" label="Request Return" />}
-          {['DELIVERED', 'CANCELLED', 'RETURN_APPROVED'].includes(order.status) && <OrderActionButton orderId={order.id} action="refund" label="Request Refund" />}
+          {['PENDING', 'PROCESSING'].includes(order.status) && (
+            <OrderActionButtonClient orderId={order.id} action="cancel" label="Cancel Order" />
+          )}
+          {order.status === 'DELIVERED' && (
+            <OrderActionButtonClient orderId={order.id} action="return" label="Request Return" />
+          )}
+          {['DELIVERED', 'CANCELLED', 'RETURN_APPROVED'].includes(order.status) && (
+            <OrderActionButtonClient orderId={order.id} action="refund" label="Request Refund" />
+          )}
         </section>
       </main>
       <Footer />
     </>
-  );
-}
-
-function OrderActionButton({ orderId, action, label }: { orderId: string; action: 'cancel' | 'return' | 'refund'; label: string }) {
-  return (
-    <form action={`/api/orders/${orderId}/${action}`} method="post">
-      <button type="submit" className="btn-gold">{label}</button>
-    </form>
   );
 }

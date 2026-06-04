@@ -3,6 +3,7 @@ import Stripe from 'stripe';
 import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
 import { auditLog } from '@/lib/audit';
+import { logger } from '@/lib/logger';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_placeholder');
 
@@ -27,11 +28,29 @@ export async function POST(req: NextRequest) {
   try {
     event = stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET!);
   } catch (err) {
-    console.error('Stripe webhook signature verification failed:', err);
+    logger.error('Stripe webhook signature verification failed', err);
     return NextResponse.json({ error: 'Invalid webhook signature' }, { status: 400 });
   }
 
   try {
+    // Webhook Idempotency Check
+    const existingEvent = await prisma.stripeEvent.findUnique({
+      where: { eventId: event.id },
+    });
+    if (existingEvent) {
+      logger.info('Stripe webhook event already processed (idempotency check)', { eventId: event.id });
+      return NextResponse.json({ received: true });
+    }
+
+    // Save event to DB to prevent duplicate processing
+    await prisma.stripeEvent.create({
+      data: {
+        eventId: event.id,
+        type: event.type,
+        processed: true,
+      },
+    });
+
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object as Stripe.Checkout.Session;
       await handleCheckoutCompleted(session, event.id);
@@ -46,7 +65,7 @@ export async function POST(req: NextRequest) {
       });
     }
   } catch (err) {
-    console.error('Webhook handler error:', err);
+    logger.error('Webhook handler error', err);
     return NextResponse.json({ error: 'Webhook processing failed' }, { status: 500 });
   }
 

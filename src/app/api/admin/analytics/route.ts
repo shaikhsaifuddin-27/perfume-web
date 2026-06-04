@@ -7,12 +7,46 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(req: Request) {
   const session = await getServerSession(authOptions);
-  if (!session || session.user.role !== 'ADMIN') {
+  const allowed = ['ADMIN', 'SUPER_ADMIN', 'MANAGER'];
+  if (!session || !allowed.includes(session.user.role)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   const { searchParams } = new URL(req.url);
-  const days = parseInt(searchParams.get('days') ?? '30', 10);
+  const daysStr = searchParams.get('days') ?? '30';
+  const days = parseInt(daysStr, 10);
+
+  if (isNaN(days) || days < 7 || days > 365) {
+    return NextResponse.json(
+      { error: 'Days parameter must be an integer between 7 and 365.' },
+      { status: 400 }
+    );
+  }
+
+  const redisUrl = process.env.UPSTASH_REDIS_REST_URL;
+  const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN;
+  const cacheKey = `cache:admin:analytics:${days}`;
+
+  if (redisUrl && redisToken) {
+    try {
+      const cacheRes = await fetch(`${redisUrl}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${redisToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(['GET', cacheKey]),
+      });
+      if (cacheRes.ok) {
+        const cacheData = await cacheRes.json();
+        if (cacheData?.result) {
+          return NextResponse.json(JSON.parse(cacheData.result));
+        }
+      }
+    } catch {
+      // Ignore cache read errors
+    }
+  }
 
   const since = new Date();
   since.setDate(since.getDate() - days);
@@ -118,10 +152,27 @@ export async function GET(req: Request) {
     return { name: p.name, revenue: Math.round(revenue * 100) / 100, unitsSold, image: p.image };
   }).sort((a, b) => b.revenue - a.revenue).slice(0, 5);
 
-  return NextResponse.json({
+  const responseData = {
     revenueByDay,
     statusBreakdown,
     categoryRevenue,
     topProducts,
-  });
+  };
+
+  if (redisUrl && redisToken) {
+    try {
+      await fetch(`${redisUrl}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${redisToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(['SET', cacheKey, JSON.stringify(responseData), 'EX', '300']),
+      });
+    } catch {
+      // Ignore cache write errors
+    }
+  }
+
+  return NextResponse.json(responseData);
 }

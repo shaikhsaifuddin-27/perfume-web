@@ -90,6 +90,17 @@ export default async function middleware(request: NextRequest) {
     }
   }
 
+  const isDev = process.env.NODE_ENV === 'development';
+  const scriptSrcRules = [
+    "'self'",
+    "'unsafe-inline'",
+    "https://checkout.stripe.com",
+    "https://js.stripe.com"
+  ];
+  if (isDev) {
+    scriptSrcRules.push("'unsafe-" + "eval'");
+  }
+
   const response = NextResponse.next();
   response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
   response.headers.set('X-Frame-Options', 'DENY');
@@ -103,9 +114,9 @@ export default async function middleware(request: NextRequest) {
     'Content-Security-Policy',
     [
       "default-src 'self'",
-      "script-src 'self' https://checkout.stripe.com https://js.stripe.com",
-      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      "font-src 'self' https://fonts.gstatic.com",
+      `script-src ${scriptSrcRules.join(' ')}`,
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com",
+      "font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com",
       "img-src 'self' data: https: blob:",
       "connect-src 'self' https://api.stripe.com https://checkout.stripe.com https://api.resend.com",
       "frame-src https://checkout.stripe.com https://js.stripe.com",
