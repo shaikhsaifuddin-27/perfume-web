@@ -76,8 +76,8 @@ export default function Navbar() {
           {/* ── Portal Button ── */}
           {mounted && (() => {
             const privileged = ['ADMIN', 'SUPER_ADMIN', 'MANAGER', 'SUPPORT'];
-            const isAdmin = session && privileged.includes(session.user.role);
-            const isUser = session && !isAdmin;
+            const isAdmin = session?.user && privileged.includes(session.user.role);
+            const isUser = session?.user && !isAdmin;
             if (isAdmin) {
               return (
                 <Link href="/admin" className={styles.portalBtnAdmin} aria-label="Admin Panel">
@@ -137,8 +137,8 @@ export default function Navbar() {
             
             {(() => {
               const privileged = ['ADMIN', 'SUPER_ADMIN', 'MANAGER', 'SUPPORT'];
-              const isAdmin = session && privileged.includes(session.user.role);
-              const isUser = session && !isAdmin;
+              const isAdmin = session?.user && privileged.includes(session.user.role);
+              const isUser = session?.user && !isAdmin;
               if (isAdmin) {
                 return (
                   <>

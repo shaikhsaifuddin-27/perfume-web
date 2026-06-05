@@ -181,11 +181,10 @@ export const authOptions: NextAuthOptions = {
           const createdAt = (token.createdAt as number) || 0;
           const fourHoursMs = 4 * 60 * 60 * 1000;
           if (Date.now() - createdAt > fourHoursMs) {
-            return {
-              ...session,
-              user: undefined as unknown as typeof session.user,
-              expires: new Date(0).toISOString(),
-            };
+            // Return null to signal NextAuth that the session is expired.
+            // Never return { user: undefined } — it makes session truthy on
+            // the client while session.user is undefined, causing crashes.
+            return null as unknown as typeof session;
           }
         }
       }
