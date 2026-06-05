@@ -9,7 +9,7 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    
+
     services:
       postgres:
         image: postgres:15
@@ -26,41 +26,34 @@ jobs:
           --health-retries 5
 
     steps:
-    - uses: actions/checkout@v3
-    
+    - uses: actions/checkout@v4
+
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: '24'
         cache: 'npm'
-        
+
     - name: Install dependencies
       run: npm ci
-      
+
     - name: Generate Prisma Client
       run: npx prisma generate
-      
+
     - name: Run Linting
       run: npm run lint
-      
+
     - name: Build Next.js
       run: npm run build
       env:
         DATABASE_URL: postgresql://postgres:password@localhost:5432/maisonelara_test?schema=public
-        NEXTAUTH_SECRET: test_secret_key_123
-
-  deploy:
-    needs: build-and-test
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v20
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.ORG_ID}}
-          vercel-project-id: ${{ secrets.PROJECT_ID}}
-          vercel-args: '--prod'
+        NEXTAUTH_SECRET: test_secret_key_for_ci_only_not_production
+        NEXTAUTH_URL: http://localhost:3000
+        NEXT_PUBLIC_BASE_URL: http://localhost:3000
+        STRIPE_SECRET_KEY: sk_test_placeholder
+        STRIPE_WEBHOOK_SECRET: whsec_placeholder
+        CLOUDINARY_CLOUD_NAME: placeholder
+        CLOUDINARY_API_KEY: placeholder
+        CLOUDINARY_API_SECRET: placeholder
+        RESEND_API_KEY: re_placeholder
+        EMAIL_FROM: noreply@maisonelara.com
