@@ -13,7 +13,6 @@ import {
   Line,
   BarChart,
   Bar,
-  Legend,
 } from 'recharts';
 
 interface Stats {
@@ -125,7 +124,6 @@ const shortDateFormatter = new Intl.DateTimeFormat('en-US', {
 export default function AdminDashboardClient({
   stats,
   recentOrders,
-  lowStock,
   customerGrowth,
   activities,
 }: {
@@ -435,6 +433,7 @@ export default function AdminDashboardClient({
                   }}
                 >
                   <span style={{ fontSize: 12, color: '#444', fontWeight: 700, width: 14 }}>#{idx + 1}</span>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={p.image}
                     alt={p.name}

@@ -112,7 +112,7 @@ export async function deleteProduct(id: string) {
 }
 
 /** Form Action wrapper for deleting products to keep TypeScript happy with bound forms */
-export async function deleteProductForm(id: string, formData: FormData) {
+export async function deleteProductForm(id: string, _: FormData) {
   await deleteProduct(id);
 }
 

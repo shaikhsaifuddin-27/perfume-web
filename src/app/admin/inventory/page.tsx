@@ -88,6 +88,7 @@ export default async function InventoryPage() {
                 background: '#0A0A0A',
               }}
             >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={product.image}
                 alt={product.name}

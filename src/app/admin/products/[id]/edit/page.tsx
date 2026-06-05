@@ -162,6 +162,7 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
         <div>
           {/* Preview */}
           <div style={{ background: '#0F0F0F', border: '1px solid #1E1E1E', borderRadius: 14, overflow: 'hidden', marginBottom: 16 }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={product.image} alt={product.name} style={{ width: '100%', height: 200, objectFit: 'cover' }} />
             <div style={{ padding: '14px 16px' }}>
               <p style={{ fontSize: 14, fontWeight: 600, color: '#F5F0E8', margin: 0, fontFamily: 'Cormorant Garamond, serif' }}>

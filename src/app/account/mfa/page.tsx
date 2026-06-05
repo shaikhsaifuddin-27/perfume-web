@@ -213,6 +213,7 @@ export default function MfaSetupPage() {
                 </p>
                 {qrUrl && (
                   <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={qrUrl} alt="MFA QR Code" style={{ border: '8px solid white', borderRadius: 4, width: 180, height: 180 }} />
                   </div>
                 )}

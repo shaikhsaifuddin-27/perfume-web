@@ -228,6 +228,7 @@ export default function AnalyticsClient() {
               {(data?.topProducts ?? []).map((p, i) => (
                 <div key={p.name} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <span style={{ fontSize: 11, color: '#333', fontWeight: 700, width: 16, flexShrink: 0 }}>#{i + 1}</span>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={p.image} alt={p.name} style={{ width: 26, height: 36, objectFit: 'cover', borderRadius: 3, flexShrink: 0, border: '1px solid #222' }} />
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <p style={{ fontSize: 12, color: '#ccc', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</p>

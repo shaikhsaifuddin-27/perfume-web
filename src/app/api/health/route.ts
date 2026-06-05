@@ -11,12 +11,13 @@ export async function GET() {
       status: "ok",
       db: "connected",
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const e = error as Record<string, unknown>;
     return NextResponse.json({
       status: "error",
       db: "disconnected",
-      message: error?.message,
-      code: error?.code,
+      message: typeof e?.message === 'string' ? e.message : String(error),
+      code: typeof e?.code === 'string' ? e.code : undefined,
     });
   }
 }

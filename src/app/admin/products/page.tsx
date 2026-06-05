@@ -268,6 +268,7 @@ export default async function AdminProductsPage({
             >
               {/* Image */}
               <div style={{ position: 'relative', height: 180, background: '#141414', overflow: 'hidden' }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={product.image}
                   alt={product.name}
